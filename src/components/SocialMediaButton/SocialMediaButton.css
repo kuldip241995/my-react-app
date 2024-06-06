@@ -1,0 +1,31 @@
+.social-media-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1.4rem;
+    cursor: pointer;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
+.social-media-button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.social-media-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
+
+.social-media-text {
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    color: var(--text-color);
+}
