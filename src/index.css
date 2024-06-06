@@ -20,9 +20,9 @@ code {
 }
 
 html {
-  font-size: 62.5%; /* base font-size 10px */
+  font-size: 60%; /* base font-size 10px */
 }
-
+/* 
 @media(max-width: 1280px) {
   html {
     font-size: 60%;
@@ -33,4 +33,4 @@ html {
   html {
     font-size: 58%;
   }
-}
+} */

@@ -50,7 +50,7 @@
 .dont-have-account-text {
     margin-top: 1.5rem;
     color: var(--text-color);
-    font-size: 1.4rem;
+    font-size: 1.33rem;
     font-family: "Open Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
@@ -58,7 +58,7 @@
 
 .signup-text {
     color: var(--primary-color);
-    font-size: 1.4rem;
+    font-size: 1.33rem;
     font-family: "Open Sans", sans-serif;
     font-optical-sizing: auto;
     font-weight: 800;

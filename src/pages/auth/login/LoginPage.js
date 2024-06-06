@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "./Login.css";
-import images from "../../assets/images";
-import TextInput from "../../components/TextInput/TextInput";
-import ThemeButton from "../../components/ThemeButton/ThemeButton";
-import SocialMediaButton from "../../components/SocialMediaButton/SocialMediaButton";
-import icons from "../../assets/icons";
+import images from "../../../assets/images";
+import TextInput from "../../../components/TextInput/TextInput";
+import ThemeButton from "../../../components/ThemeButton/ThemeButton";
+import SocialMediaButton from "../../../components/SocialMediaButton/SocialMediaButton";
+import icons from "../../../assets/icons";
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -12,6 +13,7 @@ function LoginPage() {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [loginButtonEnabled, setLoginButtonEnabled] = useState(false);
+  const navigate = useNavigate(); // Use useNavigate hook
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -35,28 +37,18 @@ function LoginPage() {
     handleLoginButtonEnabledDisabled();
   };
 
-  const handleLoginButtonEnabledDisabled = () => {
-    setLoginButtonEnabled(
-      emailError === "" && passwordError === "" ? true : false
-    );
+  const handleLoginButtonEnabledDisabled = (email, password) => {
+    const isEmailValid = /\S+@\S+\.\S+/.test(email);
+    const isPasswordValid = password.length >= 6;
+    setLoginButtonEnabled(isEmailValid && isPasswordValid);
   };
 
-  const handleSubmit = (e) => {
-    // e.preventDefault();
-    // // Basic validation
-    // if (!email || !password) {
-    //   setError("Please enter both email and password");
-    //   return;
-    // }
-    // // Simulate login process (replace with your actual login logic)
-    // if (email === "user@example.com" && password === "password") {
-    //   // Successful login
-    //   console.log("Login successful!");
-    //   setError("");
-    // } else {
-    //   // Failed login
-    //   setError("Invalid email or password");
-    // }
+  const handleLoginClicked = (e) => {
+    console.log("handleSubmit clicked..");
+  };
+
+  const handleSignUpClicked = () => {
+    navigate('/register'); // Navigate to signup page
   };
 
   return (
@@ -93,7 +85,7 @@ function LoginPage() {
               onClick={() => {}}
             />
           </div>
-          <form onSubmit={handleSubmit} style={{ marginTop: "1.5rem" }}>
+          <form style={{ marginTop: "1.5rem" }}>
             <TextInput
               label="Email Address"
               type="email"
@@ -115,8 +107,12 @@ function LoginPage() {
             type="submit"
             text="Login to Continue"
             enabled={loginButtonEnabled}
+            onClick={() => handleLoginClicked()}
           />
-          <p className="dont-have-account-text" onClick={() => {}}>
+          <p
+            className="dont-have-account-text"
+            onClick={() => handleSignUpClicked()}
+          >
             Don't have an account? <span className="signup-text">Sign up</span>
           </p>
         </div>
