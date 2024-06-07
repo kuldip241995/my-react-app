@@ -1,0 +1,177 @@
+import React, { useState } from "react";
+import "./RegisterPage.css";
+import images from "../../assets/images";
+import TextInput from "../../components/TextInput/TextInput";
+import ThemeButton from "../../components/ThemeButton/ThemeButton";
+import SocialMediaButton from "../../components/SocialMediaButton/SocialMediaButton";
+import icons from "../../assets/icons";
+import { useNavigate } from "react-router-dom";
+import { motion } from 'framer-motion';
+
+const pageVariants = {
+  initial: {
+    opacity: 0,
+    x: '-100vw',
+  },
+  in: {
+    opacity: 1,
+    x: 0,
+  },
+  out: {
+    opacity: 0,
+    x: '100vw',
+  },
+};
+
+const pageTransition = {
+  type: 'tween',
+  duration: 0.5,
+};
+
+
+function RegisterPage() {
+  const [username, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [usernameError, setUsernameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [loginButtonEnabled, setLoginButtonEnabled] = useState(false);
+  const navigate = useNavigate(); // Use useNavigate hook
+
+  const handleUsernameChange = (e) => {
+    setUserName(e.target.value);
+    setUsernameError(""); // Clear previous error message
+    // Validate username format here
+    const isValid = /^[a-zA-Z0-9_]{3,15}$/.test(e.target.value);
+    if (!isValid) {
+      setUsernameError(
+        "Username must be 3-15 characters and contain only letters, numbers, and underscores"
+      );
+    }
+    handleLoginButtonEnabledDisabled(e.target.value, email, password);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setEmailError(""); // Clear previous error message
+    // Validate email format here
+    const isValid = /\S+@\S+\.\S+/.test(e.target.value);
+    if (!isValid) {
+      setEmailError("Please enter a valid email address");
+    }
+    handleLoginButtonEnabledDisabled(username, e.target.value, password);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    setPasswordError(""); // Clear previous error message
+    // Validate password format here
+    const isValid = e.target.value.length >= 6;
+    if (!isValid) {
+      setPasswordError("Password must be at least 6 characters long");
+    }
+    handleLoginButtonEnabledDisabled(username, email, e.target.value);
+  };
+
+  const handleLoginButtonEnabledDisabled = (username, email, password) => {
+    const isUsernameValid = /^[a-zA-Z0-9_]{3,15}$/.test(username);
+    const isEmailValid = /\S+@\S+\.\S+/.test(email);
+    const isPasswordValid = password.length >= 6;
+    setLoginButtonEnabled(isUsernameValid && isEmailValid && isPasswordValid);
+  };
+
+  const handleSubmitClicked = (e) => {
+    console.log("handleSubmit clicked..");
+  };
+
+  const handleLoginClicked = () => {
+    navigate("/login"); // Navigate to signup page
+  };
+
+  return (
+    <motion.div
+    initial="initial"
+    animate="in"
+    exit="out"
+    variants={pageVariants}
+    transition={pageTransition}
+    className="signup-page"
+  >
+      <div className="image-container d-none d-md-block">
+        {/* Replace the image URL with your actual image */}
+        <img
+          src={images.imgLoginLeft}
+          alt="Login Background"
+          style={{ objectFit: "cover", width: "100%", height: "100%" }}
+        />
+      </div>
+      <div className="form-container">
+        <div className="form-sub-container">
+          <img
+            src={images.imgAppLogo}
+            alt="Login Background"
+            style={{ width: "100px", height: "50px" }}
+          />
+          <div className="title-container">
+            <text className="title-text">Create Account</text>
+          </div>
+          <div style={{ margin: "1.5rem" }}></div>
+
+          <form style={{ marginTop: "1.5rem" }}>
+            <TextInput
+              label="Username"
+              value={username}
+              onChange={handleUsernameChange}
+              placeholder={"Enter your username"}
+              error={usernameError}
+            />
+            <TextInput
+              label="Email Address"
+              type="email"
+              value={email}
+              onChange={handleEmailChange}
+              placeholder={"Enter your email"}
+              error={emailError}
+            />
+            <TextInput
+              label="Password"
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+              placeholder={"Enter your password"}
+              error={passwordError}
+            />
+          </form>
+          <ThemeButton
+            type="submit"
+            text="Login to Continue"
+            enabled={loginButtonEnabled}
+            onClick={() => handleSubmitClicked()}
+          />
+          <p
+            className="already-have-account-text"
+            onClick={() => handleLoginClicked()}
+          >
+            Already have an account ? <span className="login-text">Log in</span>
+          </p>
+          <div className="social-login">
+            <SocialMediaButton
+              image={icons.icGoogle}
+              text="Login with Google"
+              onClick={() => {}}
+            />
+            <div style={{ margin: "0 10px" }}></div>
+            <SocialMediaButton
+              image={icons.icFacebook}
+              text="Login with Facebook"
+              onClick={() => {}}
+            />
+          </div>
+        </div>
+      </div>
+      </motion.div>
+  );
+}
+
+export default RegisterPage;

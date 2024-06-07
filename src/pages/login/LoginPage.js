@@ -1,34 +1,40 @@
 import React, { useState } from "react";
-import "./RegisterPage.css";
-import images from "../../../assets/images";
-import TextInput from "../../../components/TextInput/TextInput";
-import ThemeButton from "../../../components/ThemeButton/ThemeButton";
-import SocialMediaButton from "../../../components/SocialMediaButton/SocialMediaButton";
-import icons from "../../../assets/icons";
+import "./Login.css";
+import images from "../../assets/images";
+import TextInput from "../../components/TextInput/TextInput";
+import ThemeButton from "../../components/ThemeButton/ThemeButton";
+import SocialMediaButton from "../../components/SocialMediaButton/SocialMediaButton";
+import icons from "../../assets/icons";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
-function RegisterPage() {
-  const [username, setUserName] = useState("");
+const pageVariants = {
+  initial: {
+    opacity: 0,
+    x: "-100vw",
+  },
+  in: {
+    opacity: 1,
+    x: 0,
+  },
+  out: {
+    opacity: 0,
+    x: "100vw",
+  },
+};
+
+const pageTransition = {
+  type: "tween",
+  duration: 0.5,
+};
+
+function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [usernameError, setUsernameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [loginButtonEnabled, setLoginButtonEnabled] = useState(false);
   const navigate = useNavigate(); // Use useNavigate hook
-
-  const handleUsernameChange = (e) => {
-    setUserName(e.target.value);
-    setUsernameError(""); // Clear previous error message
-    // Validate username format here
-    const isValid = /^[a-zA-Z0-9_]{3,15}$/.test(e.target.value);
-    if (!isValid) {
-      setUsernameError(
-        "Username must be 3-15 characters and contain only letters, numbers, and underscores"
-      );
-    }
-    handleLoginButtonEnabledDisabled(e.target.value, email, password);
-  };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -36,9 +42,9 @@ function RegisterPage() {
     // Validate email format here
     const isValid = /\S+@\S+\.\S+/.test(e.target.value);
     if (!isValid) {
-      setEmailError("Please enter a valid email address");
+      setEmailError("Please enter valid email address");
     }
-    handleLoginButtonEnabledDisabled(username, e.target.value, password);
+    handleLoginButtonEnabledDisabled(e.target.value, password);
   };
 
   const handlePasswordChange = (e) => {
@@ -49,26 +55,32 @@ function RegisterPage() {
     if (!isValid) {
       setPasswordError("Password must be at least 6 characters long");
     }
-    handleLoginButtonEnabledDisabled(username, email, e.target.value);
+    handleLoginButtonEnabledDisabled(email, e.target.value);
   };
 
-  const handleLoginButtonEnabledDisabled = (username, email, password) => {
-    const isUsernameValid = /^[a-zA-Z0-9_]{3,15}$/.test(username);
+  const handleLoginButtonEnabledDisabled = (email, password) => {
     const isEmailValid = /\S+@\S+\.\S+/.test(email);
     const isPasswordValid = password.length >= 6;
-    setLoginButtonEnabled(isUsernameValid && isEmailValid && isPasswordValid);
+    setLoginButtonEnabled(isEmailValid && isPasswordValid);
   };
 
-  const handleSubmitClicked = (e) => {
+  const handleLoginClicked = (e) => {
     console.log("handleSubmit clicked..");
   };
 
-  const handleLoginClicked = () => {
-    navigate("/login"); // Navigate to signup page
+  const handleSignUpClicked = () => {
+    navigate("/register"); // Navigate to signup page
   };
 
   return (
-    <div className="login-page">
+    <motion.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+      className="login-page"
+    >
       <div className="image-container d-none d-md-block">
         {/* Replace the image URL with your actual image */}
         <img
@@ -85,18 +97,23 @@ function RegisterPage() {
             style={{ width: "100px", height: "50px" }}
           />
           <div className="title-container">
-            <text className="title-text">Create Account</text>
+            <text className="title-text">Login to your account!</text>
           </div>
           <div style={{ margin: "1.5rem" }}></div>
-
-          <form style={{ marginTop: "1.5rem" }}>
-            <TextInput
-              label="Username"
-              value={username}
-              onChange={handleUsernameChange}
-              placeholder={"Enter your username"}
-              error={usernameError}
+          <div className="social-login">
+            <SocialMediaButton
+              image={icons.icGoogle}
+              text="Login with Google"
+              onClick={() => {}}
             />
+            <div style={{ margin: "0 10px" }}></div>
+            <SocialMediaButton
+              image={icons.icFacebook}
+              text="Login with Facebook"
+              onClick={() => {}}
+            />
+          </div>
+          <form style={{ marginTop: "1.5rem" }}>
             <TextInput
               label="Email Address"
               type="email"
@@ -118,31 +135,18 @@ function RegisterPage() {
             type="submit"
             text="Login to Continue"
             enabled={loginButtonEnabled}
-            onClick={() => handleSubmitClicked()}
+            onClick={() => handleLoginClicked()}
           />
           <p
-            className="already-have-account-text"
-            onClick={() => handleLoginClicked()}
+            className="dont-have-account-text"
+            onClick={() => handleSignUpClicked()}
           >
-            Already have an account ? <span className="login-text">Log in</span>
+            Don't have an account? <span className="signup-text">Sign up</span>
           </p>
-          <div className="social-login">
-            <SocialMediaButton
-              image={icons.icGoogle}
-              text="Login with Google"
-              onClick={() => {}}
-            />
-            <div style={{ margin: "0 10px" }}></div>
-            <SocialMediaButton
-              image={icons.icFacebook}
-              text="Login with Facebook"
-              onClick={() => {}}
-            />
-          </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
-export default RegisterPage;
+export default LoginPage;
