@@ -23,7 +23,7 @@ function LoginPage() {
     if (!isValid) {
       setEmailError("Please enter valid email address");
     }
-    handleLoginButtonEnabledDisabled();
+    handleLoginButtonEnabledDisabled(e.target.value, password);
   };
 
   const handlePasswordChange = (e) => {
@@ -34,7 +34,7 @@ function LoginPage() {
     if (!isValid) {
       setPasswordError("Password must be at least 6 characters long");
     }
-    handleLoginButtonEnabledDisabled();
+    handleLoginButtonEnabledDisabled(email, e.target.value);
   };
 
   const handleLoginButtonEnabledDisabled = (email, password) => {

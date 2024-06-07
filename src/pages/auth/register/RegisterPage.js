@@ -17,15 +17,17 @@ function RegisterPage() {
   const [loginButtonEnabled, setLoginButtonEnabled] = useState(false);
   const navigate = useNavigate(); // Use useNavigate hook
 
-  const handleUserChange = (e) => {
+  const handleUsernameChange = (e) => {
     setUserName(e.target.value);
     setUsernameError(""); // Clear previous error message
-    // Validate email format here
-    // const isValid = /\S+@\S+\.\S+/.test(e.target.value);
-    // if (!isValid) {
-    //   setEmailError("Please enter valid email address");
-    // }
-    // handleLoginButtonEnabledDisabled();
+    // Validate username format here
+    const isValid = /^[a-zA-Z0-9_]{3,15}$/.test(e.target.value);
+    if (!isValid) {
+      setUsernameError(
+        "Username must be 3-15 characters and contain only letters, numbers, and underscores"
+      );
+    }
+    handleLoginButtonEnabledDisabled(e.target.value, email, password);
   };
 
   const handleEmailChange = (e) => {
@@ -34,9 +36,9 @@ function RegisterPage() {
     // Validate email format here
     const isValid = /\S+@\S+\.\S+/.test(e.target.value);
     if (!isValid) {
-      setEmailError("Please enter valid email address");
+      setEmailError("Please enter a valid email address");
     }
-    handleLoginButtonEnabledDisabled();
+    handleLoginButtonEnabledDisabled(username, e.target.value, password);
   };
 
   const handlePasswordChange = (e) => {
@@ -47,13 +49,14 @@ function RegisterPage() {
     if (!isValid) {
       setPasswordError("Password must be at least 6 characters long");
     }
-    handleLoginButtonEnabledDisabled();
+    handleLoginButtonEnabledDisabled(username, email, e.target.value);
   };
 
-  const handleLoginButtonEnabledDisabled = (email, password) => {
+  const handleLoginButtonEnabledDisabled = (username, email, password) => {
+    const isUsernameValid = /^[a-zA-Z0-9_]{3,15}$/.test(username);
     const isEmailValid = /\S+@\S+\.\S+/.test(email);
     const isPasswordValid = password.length >= 6;
-    setLoginButtonEnabled(isEmailValid && isPasswordValid);
+    setLoginButtonEnabled(isUsernameValid && isEmailValid && isPasswordValid);
   };
 
   const handleSubmitClicked = (e) => {
@@ -85,12 +88,12 @@ function RegisterPage() {
             <text className="title-text">Create Account</text>
           </div>
           <div style={{ margin: "1.5rem" }}></div>
-          
+
           <form style={{ marginTop: "1.5rem" }}>
-           <TextInput
+            <TextInput
               label="Username"
               value={username}
-              onChange={handleUserChange}
+              onChange={handleUsernameChange}
               placeholder={"Enter your username"}
               error={usernameError}
             />
@@ -121,8 +124,7 @@ function RegisterPage() {
             className="already-have-account-text"
             onClick={() => handleLoginClicked()}
           >
-          
-          Already have an account ? <span className="login-text">Log in</span>
+            Already have an account ? <span className="login-text">Log in</span>
           </p>
           <div className="social-login">
             <SocialMediaButton
