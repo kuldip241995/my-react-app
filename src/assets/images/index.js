@@ -2,4 +2,5 @@
 export default {
   imgLoginLeft: require("./imgLoginLeft.png"),
   imgAppLogo: require("./imgAppLogo.png"),
+  imgHomeHeaderDish: require("./imgHomeHeaderDish.png"),
 };

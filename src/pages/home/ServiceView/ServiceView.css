@@ -1,0 +1,54 @@
+.service-view {
+    display: flex;
+    padding: 1.0rem;
+    align-items: center; /* Center items vertically */
+}
+
+.left-image {
+    flex: 0 0 auto;
+    margin-right: 2.0rem;
+}
+
+.left-image img {
+    max-width: 10.0rem;
+    height: 10.0rem;
+}
+
+.right-content {
+    flex: 1;
+}
+
+.right-content h2 {
+    font-size: 1.5em;
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 3.2rem;
+}
+
+.right-content p {
+    color: #939393;
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+
+@media (max-width: 768px) {
+    /* Adjust for mobile view */
+    .service-view {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Center items horizontally */
+    }
+
+    .left-image {
+        margin-right: 0; /* Remove right margin in mobile view */
+        margin-bottom: 1.5rem; /* Add bottom margin for spacing */
+    }
+
+    .right-content {
+        text-align: center; /* Center text in mobile view */
+    }
+}

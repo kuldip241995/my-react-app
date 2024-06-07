@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 const pageVariants = {
   initial: {
     opacity: 0,
-    x: '-100vw',
+    x: '100vw',
   },
   in: {
     opacity: 1,
@@ -19,7 +19,7 @@ const pageVariants = {
   },
   out: {
     opacity: 0,
-    x: '100vw',
+    x: '-100vw',
   },
 };
 
@@ -82,7 +82,7 @@ function RegisterPage() {
   };
 
   const handleSubmitClicked = (e) => {
-    console.log("handleSubmit clicked..");
+    navigate("/home"); // Navigate to home page
   };
 
   const handleLoginClicked = () => {

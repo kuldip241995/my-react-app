@@ -1,0 +1,60 @@
+/* src/components/Navbar/Navbar.css */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 5rem;
+    background-color: transparent;
+    color: #fff;
+}
+
+.navbar-left,
+.navbar-center,
+.navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo {
+    height: 40px;
+}
+
+.navbar-center {
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.navbar-link {
+    margin: 0 1rem;
+    color: var(--gray-color);
+    text-decoration: none;
+    font-size: 2rem;
+    font-family: "Open Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+}
+
+.navbar-link:hover {
+    color: var(--text-color);
+}
+
+.active-link {
+    color: var(--text-color);
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    width: 4rem;
+    height: 4rem;
+    margin-right: 1rem;
+}
+
+.navbar-profile {
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}

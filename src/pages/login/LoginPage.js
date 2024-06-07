@@ -65,7 +65,7 @@ function LoginPage() {
   };
 
   const handleLoginClicked = (e) => {
-    console.log("handleSubmit clicked..");
+    navigate("/home"); // Navigate to home page
   };
 
   const handleSignUpClicked = () => {

@@ -14,12 +14,14 @@ import {
 import NotFoundPage from "./pages/NotFoundPage";
 import LoginPage from "./pages/login/LoginPage";
 import RegisterPage from "./pages/register/RegisterPage";
+import HomePage from "./pages/home/HomePage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="/login" index element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+      <Route path="/home" index element={<HomePage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Route>
   )
