@@ -11,10 +11,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-
-import RegisterPage from "./pages/auth/register/RegisterPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import LoginPage from "./pages/auth/login/LoginPage";
+import LoginPage from "./pages/login/LoginPage";
+import RegisterPage from "./pages/register/RegisterPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
